@@ -7,7 +7,7 @@ import { Estudiante } from '../models/estudiante.model';
   providedIn: 'root'
 })
 export class EstudiantesService {
-  private apiUrl = 'http://localhost:3000/api/estudiantes'; // Ajusta si cambia el puerto
+  private apiUrl = 'https://mnematica-backend.onrender.com/api/estudiantes'; // Ajusta si cambia el puerto
 
   constructor(private http: HttpClient) {}
 

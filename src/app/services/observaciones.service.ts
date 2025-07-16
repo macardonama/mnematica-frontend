@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
 export class ObservacionesService {
-  private apiUrl = 'http://localhost:3000/api/observaciones';
+  private apiUrl = 'https://mnematica-backend.onrender.com/api/observaciones';
 
   constructor(private http: HttpClient) {}
 

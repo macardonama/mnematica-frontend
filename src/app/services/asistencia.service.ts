@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { RegistroAsistencia } from '../models/asistencia.model';
 @Injectable({ providedIn: 'root' })
 export class AsistenciasService {
-  private apiUrl = 'http://localhost:3000/api/asistencias'; // Reemplaza con tu URL real
+  private apiUrl = 'https://mnematica-backend.onrender.com/api/asistencias'; // Reemplaza con tu URL real
 
   constructor(private http: HttpClient) {}
 
