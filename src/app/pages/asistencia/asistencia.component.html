@@ -1,0 +1,48 @@
+<div class="container asistencia-container">
+  <h2 class="titulo">Registrar Asistencia</h2>
+<div class="volver-inicio">
+  <button class="btn-volver" routerLink="">⬅ Volver al Inicio</button>
+</div>
+
+  <div class="filtros">
+    <select [(ngModel)]="grupoSeleccionado" (change)="filtrarEstudiantes()" class="select-input">
+      <option *ngFor="let g of grupos" [value]="g">{{ g }}</option>
+    </select>
+
+    <select [(ngModel)]="docenteSeleccionado" class="select-input">
+      <option *ngFor="let d of docentes" [value]="d.nombre_docente">{{ d.nombre_docente }}</option>
+    </select>
+  </div>
+
+  <div *ngFor="let estudiante of estudiantesFiltrados" class="estudiante-card">
+    <p class="estudiante-nombre">{{ estudiante.nombre_estudiante }}</p>
+
+    <select [(ngModel)]="asistenciasMap[estudiante.nombre_estudiante].estado"
+            (change)="validarEstado(estudiante.nombre_estudiante)" class="select-input">
+      <option value="">-- Selecciona estado --</option>
+      <option value="presente">Presente</option>
+      <option value="ausente">Ausente</option>
+      <option value="cita">Cita</option>
+      <option value="en cuarto">En cuarto</option>
+      <option value="hospitalizado">Hospitalizado</option>
+    </select>
+
+    <div *ngIf="asistenciasMap[estudiante.nombre_estudiante].estado === 'presente'" class="emociones">
+      <label class="emociones-label">¿Cómo se siente?</label>
+      <div class="emoji-group">
+        <button *ngFor="let emoji of emojis"
+                (click)="seleccionarEmoji(estudiante.nombre_estudiante, emoji)"
+                [ngClass]="{
+                  'emoji-btn': true,
+                  'emoji-seleccionado': asistenciasMap[estudiante.nombre_estudiante].emocion === emoji
+                }">
+          {{ emoji }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="boton-guardar">
+    <button class="btn-principal" (click)="guardar()">Guardar Asistencia</button>
+  </div>
+</div>

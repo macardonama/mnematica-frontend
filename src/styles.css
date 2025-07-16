@@ -1,1 +1,270 @@
-/* You can add global styles to this file, and also import other style files */
+/* ----- Tipografía general ----- */
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f4f6f8;
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+
+/* ----- Títulos ----- */
+h1, h2, h3 {
+  color: #2c3e50;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+/* ----- Contenedor principal para páginas ----- */
+.container {
+  max-width: 960px;
+  margin: auto;
+  padding: 20px;
+}
+
+/* ----- Filtros en línea ----- */
+.filtros {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+/* ----- Estilo base de selects y entradas ----- */
+.select-input, .input-text {
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  min-width: 160px;
+  font-size: 14px;
+}
+
+/* ----- Estudiante ----- */
+.estudiante-card {
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 15px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  width: 100%;              /* que se adapte al ancho del padre */
+  box-sizing: border-box;
+}
+
+.estudiante-nombre {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* ----- Emoji y emociones ----- */
+.emociones {
+  margin-top: 10px;
+}
+
+.emociones-label {
+  font-size: 14px;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.emoji-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.emoji-btn {
+  font-size: 22px;
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  cursor: pointer;
+  background-color: #f8f9fa;
+  transition: background-color 0.2s ease;
+}
+
+.emoji-seleccionado {
+  background-color: #d1e7dd !important;
+  border-color: #0f5132;
+}
+
+/* ----- Botón principal ----- */
+.btn-principal {
+  padding: 10px 20px;
+  font-weight: bold;
+  color: white;
+  background-color: #198754;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-principal:hover {
+  background-color: #157347;
+}
+
+.boton-guardar {
+  text-align: center;
+  margin-top: 30px;
+}
+
+/* ----- Utilidades ----- */
+.text-center {
+  text-align: center;
+}
+
+.mt-2 {
+  margin-top: 10px;
+}
+.mt-3 {
+  margin-top: 20px;
+}
+
+.lista-estudiantes {
+  list-style-type: none;
+  padding: 0;
+}
+
+.botones-estudiante {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.btn-secundario {
+  padding: 10px 20px;
+  font-weight: bold;
+  color: #333;
+  background-color: #e9ecef;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-secundario:hover {
+  background-color: #ced4da;
+}
+
+ .input-text {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+
+.inicio-container {
+  background-color: #f8f9fa;
+  padding: 40px 20px;
+  border-radius: 10px;
+  max-width: 600px;
+  margin: 60px auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  text-align: center;
+}
+
+.titulo {
+  margin-bottom: 10px;
+  color: #1a1a1a;
+}
+
+.subtitulo {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 30px;
+}
+
+.menu-principal {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.btn-menu {
+  background-color: #0d6efd;
+  color: white;
+  font-size: 16px;
+  padding: 14px 20px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.btn-menu:hover {
+  background-color: #0b5ed7;
+}
+
+.registro-diario-container {
+  background-color: #fdfdfd;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  margin-top: 40px;
+}
+
+.observacion-general {
+  margin-top: 20px;
+}
+
+.textarea-input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  resize: vertical;
+  font-size: 14px;
+}
+
+.tabla-observaciones {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 30px;
+}
+
+.tabla-observaciones th,
+.tabla-observaciones td {
+  border: 1px solid #ccc;
+  padding: 8px 10px;
+  text-align: left;
+  font-size: 14px;
+}
+
+.tabla-observaciones th {
+  background-color: #e9ecef;
+}
+
+.boton-guardar {
+  text-align: center;
+  margin-top: 30px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.volver-inicio {
+  margin: 20px 0;
+  text-align: left;
+}
+
+.btn-volver {
+  background-color: #1d4942;
+  color: white;
+  padding: 8px 16px;
+  font-weight: 500;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-volver:hover {
+  background-color: #2eb174;
+}

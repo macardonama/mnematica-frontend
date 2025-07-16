@@ -1,0 +1,36 @@
+<div class="container">
+  <h2 class="titulo">Lista de Estudiantes</h2>
+<div class="volver-inicio">
+  <button class="btn-volver" routerLink="">⬅ Volver al Inicio</button>
+</div>
+
+  <div class="filtros">
+    <label for="grupo-select">Grupo:</label>
+    <select id="grupo-select" [(ngModel)]="grupoSeleccionado" (change)="filtrarPorGrupo()" class="select-input">
+      <option *ngFor="let grupo of grupos" [value]="grupo">{{ grupo }}</option>
+    </select>
+  </div>
+
+  <ul class="lista-estudiantes">
+    <li *ngFor="let estudiante of estudiantes" class="estudiante-card">
+      <input [(ngModel)]="estudiante.nombre_estudiante" placeholder="Nombre" class="input-text" />
+      <input [(ngModel)]="estudiante.grado" placeholder="Grupo" class="input-text" />
+      <input type="date" [(ngModel)]="estudiante.fecha_nacimiento" class="input-text" />
+      <input type="number" [(ngModel)]="estudiante.hito" placeholder="Hito" class="input-text" />
+
+      <div class="botones-estudiante">
+        <button class="btn-principal" (click)="actualizar(estudiante)">Modificar</button>
+        <button class="btn-secundario" (click)="eliminar(estudiante._id)">Eliminar</button>
+      </div>
+    </li>
+  </ul>
+
+  <h3 class="mt-3">Agregar Nuevo Estudiante</h3>
+  <div class="filtros">
+    <input [(ngModel)]="nuevoEstudiante.nombre_estudiante" placeholder="Nombre" class="input-text" />
+    <input [(ngModel)]="nuevoEstudiante.grado" placeholder="Grupo" class="input-text" />
+    <input type="date" [(ngModel)]="nuevoEstudiante.fecha_nacimiento" class="input-text" />
+    <input type="number" [(ngModel)]="nuevoEstudiante.hito" placeholder="Hito" class="input-text" />
+    <button class="btn-principal" (click)="agregar()">Agregar</button>
+  </div>
+</div>
