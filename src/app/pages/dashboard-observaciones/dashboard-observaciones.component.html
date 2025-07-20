@@ -18,6 +18,9 @@
     <input type="date" [(ngModel)]="hasta">
     <button (click)="cargarDatos()">Buscar</button>
   </div>
+<div class="boton-descarga">
+  <button class="btn-principal" (click)="descargarExcel()">📥 Descargar Excel</button>
+</div>
 
   <table *ngIf="fechas.length > 0">
     <thead>
