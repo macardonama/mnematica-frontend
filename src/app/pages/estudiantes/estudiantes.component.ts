@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { EstudiantesService } from '../../services/estudiantes.service';
 import { Estudiante } from '../../models/estudiante.model';
 import { RouterModule } from '@angular/router';
+
 @Component({
   selector: 'app-estudiantes',
   standalone: true,
@@ -17,14 +18,22 @@ export class EstudiantesComponent implements OnInit {
     grado: '',
     fecha_nacimiento: '',
     hito: 0
-   };
-  grupos: string[] = ['Todos','6°', '7°', '8°', '9°','10°', '11°'];
+  };
+
+  grupos: string[] = ['Todos', '6°', '7°', '8°', '9°', '10°', '11°'];
   grupoSeleccionado = 'Todos';
 
   constructor(private estudiantesService: EstudiantesService) {}
 
-  ngOnInit() { 
-    this.cargarEstudiantes();
+  ngOnInit() {
+    const localData = localStorage.getItem('estudiantes_data');
+    if (localData) {
+      const parsed = JSON.parse(localData);
+      this.grupoSeleccionado = parsed.grupoSeleccionado || 'Todos';
+      this.estudiantes = parsed.estudiantes || [];
+    } else {
+      this.cargarEstudiantes();
+    }
   }
 
   cargarEstudiantes() {
@@ -32,12 +41,13 @@ export class EstudiantesComponent implements OnInit {
       this.estudiantes = this.grupoSeleccionado === 'Todos'
         ? data
         : data.filter(e => e.grado === this.grupoSeleccionado);
+      this.guardarEnLocalStorage();
     });
   }
 
   agregar() {
     this.estudiantesService.agregarEstudiante(this.nuevoEstudiante).subscribe(() => {
-      this.nuevoEstudiante = { nombre_estudiante: '', grado: '' };
+      this.nuevoEstudiante = { nombre_estudiante: '', grado: '', fecha_nacimiento: '', hito: 0 };
       this.cargarEstudiantes();
     });
   }
@@ -60,5 +70,12 @@ export class EstudiantesComponent implements OnInit {
 
   filtrarPorGrupo() {
     this.cargarEstudiantes();
+  }
+
+  guardarEnLocalStorage() {
+    localStorage.setItem('estudiantes_data', JSON.stringify({
+      grupoSeleccionado: this.grupoSeleccionado,
+      estudiantes: this.estudiantes
+    }));
   }
 }

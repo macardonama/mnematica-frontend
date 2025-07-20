@@ -7,6 +7,7 @@ import { AsistenciasService } from '../../services/asistencia.service';
 import { Estudiante } from '../../models/estudiante.model';
 import { RegistroAsistencia } from '../../models/asistencia.model';
 import { RouterModule } from '@angular/router';
+
 @Component({
   selector: 'app-asistencia',
   standalone: true,
@@ -19,9 +20,6 @@ export class AsistenciaComponent implements OnInit {
   docentes: any[] = [];
   asistenciasMap: any = {};
   emojis: string[] = ['😃', '😐', '😔', '😡', '🥱', '😊', '🤢', '🥰', '🤯'];
-  seleccionarEmoji(nombre: string, emoji: string): void {
-  this.asistenciasMap[nombre].emocion = emoji;
-}
 
   grupos: string[] = ['6°', '7°', '8°', '9°', '10°', '11°'];
   grupoSeleccionado = '6°';
@@ -34,6 +32,15 @@ export class AsistenciaComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    // Cargar estado desde localStorage
+    const guardado = localStorage.getItem('asistencia');
+    if (guardado) {
+      const data = JSON.parse(guardado);
+      this.grupoSeleccionado = data.grupoSeleccionado || '6°';
+      this.docenteSeleccionado = data.docenteSeleccionado || '';
+      this.asistenciasMap = data.asistenciasMap || {};
+    }
+
     this.cargarEstudiantes();
     this.cargarDocentes();
   }
@@ -58,16 +65,23 @@ export class AsistenciaComponent implements OnInit {
         this.asistenciasMap[e.nombre_estudiante] = { estado: '', emocion: '' };
       }
     });
+    this.guardarEnLocalStorage();
+  }
+
+  seleccionarEmoji(nombre: string, emoji: string): void {
+    this.asistenciasMap[nombre].emocion = emoji;
+    this.guardarEnLocalStorage();
   }
 
   validarEstado(nombre: string) {
     if (this.asistenciasMap[nombre].estado !== 'presente') {
       this.asistenciasMap[nombre].emocion = '';
     }
+    this.guardarEnLocalStorage();
   }
 
   guardar() {
-    const fechaHoy = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+    const fechaHoy = new Date().toISOString().split('T')[0];
     const asistencias = this.estudiantesFiltrados.map(e => {
       const estado = this.asistenciasMap[e.nombre_estudiante].estado;
       const emocion = this.asistenciasMap[e.nombre_estudiante].emocion;
@@ -91,5 +105,13 @@ export class AsistenciaComponent implements OnInit {
     this.asistenciasService.guardarAsistencia(payload).subscribe(() => {
       alert('Asistencia guardada con éxito.');
     });
+  }
+
+  guardarEnLocalStorage() {
+    localStorage.setItem('asistencia', JSON.stringify({
+      grupoSeleccionado: this.grupoSeleccionado,
+      docenteSeleccionado: this.docenteSeleccionado,
+      asistenciasMap: this.asistenciasMap
+    }));
   }
 }

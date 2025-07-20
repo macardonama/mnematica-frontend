@@ -1,0 +1,38 @@
+<div class="container">
+  <h2>Dashboard de Observaciones</h2>
+
+  <div class="filtros">
+    <select [(ngModel)]="docenteSeleccionado">
+      <option value="">Seleccione docente</option>
+      <option *ngFor="let docente of docentes" [value]="docente.nombre_docente">
+        {{ docente.nombre_docente }}
+      </option>
+    </select>
+
+    <select [(ngModel)]="grupoSeleccionado">
+      <option value="">Seleccione grupo</option>
+      <option *ngFor="let grupo of grupos" [value]="grupo">{{ grupo }}</option>
+    </select>
+
+    <input type="date" [(ngModel)]="desde">
+    <input type="date" [(ngModel)]="hasta">
+    <button (click)="cargarDatos()">Buscar</button>
+  </div>
+
+  <table *ngIf="fechas.length > 0">
+    <thead>
+      <tr>
+        <th>Estudiante</th>
+        <th *ngFor="let fecha of fechas">{{ fecha }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let est of estudiantes">
+        <td>{{ est.nombre }}</td>
+        <td *ngFor="let fecha of fechas">
+          {{ est.notas[fecha] ?? '-' }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

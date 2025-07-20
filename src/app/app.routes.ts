@@ -9,4 +9,9 @@ export const routes: Routes = [
   { path: 'asistencia', component: AsistenciaComponent },
   { path: 'estudiantes', component: EstudiantesComponent },
   { path: 'observaciones', component: ObservacionesComponent },
+  {
+  path: 'dashboard-observaciones',
+  loadComponent: () => import('./pages/dashboard-observaciones/dashboard-observaciones.component').then(m => m.DashboardObservacionesComponent),
+}
+
 ];
