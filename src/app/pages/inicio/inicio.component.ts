@@ -16,7 +16,8 @@ import { RouterModule } from '@angular/router';
     <button class="btn-menu" routerLink="/asistencia">📋 Registrar Asistencia</button>
     <button class="btn-menu" routerLink="/estudiantes">👨‍🏫 Modificar Estudiantes</button>
     <button class="btn-menu" routerLink="/observaciones">📝 Registrar Observaciones</button>
-  <button class="btn-menu" routerLink="/dashboard-observaciones">📊 DashBoard Observaciones</button>
+  <button class="btn-menu" routerLink="/dashboard-observaciones">📊 Plantilla de Notas</button>
+  <button class="btn-menu" routerLink="/observador-individual">📘 Observador Individual</button>
   </div>
 </div>
 

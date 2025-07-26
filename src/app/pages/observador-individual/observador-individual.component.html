@@ -1,0 +1,31 @@
+<div class="observador-container">
+  <h2>📘 Observador individual</h2>
+
+  <div class="form-group">
+    <label for="grupo">📚 Filtrar por grupo:</label>
+    <select id="grupo" [(ngModel)]="grupoSeleccionado" (change)="cargarEstudiantes()">
+      <option value="" disabled selected>Selecciona un grupo</option>
+      <option *ngFor="let grupo of grupos" [value]="grupo">{{ grupo }}</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="estudiante">👩‍🎓 Seleccionar estudiante:</label>
+    <select id="estudiante" [(ngModel)]="estudianteSeleccionado">
+      <option value="" disabled selected>Selecciona un estudiante</option>
+      <option *ngFor="let est of estudiantesFiltrados" [value]="est">{{ est }}</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="inputEstudiante">✍️ O escribir el nombre del estudiante:</label>
+    <input
+      id="inputEstudiante"
+      type="text"
+      placeholder="Nombre del estudiante"
+      [(ngModel)]="estudianteEscrito"
+    />
+  </div>
+
+  <button (click)="generarPDF()">📄 Generar PDF</button>
+</div>

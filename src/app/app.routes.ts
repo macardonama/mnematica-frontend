@@ -12,6 +12,13 @@ export const routes: Routes = [
   {
   path: 'dashboard-observaciones',
   loadComponent: () => import('./pages/dashboard-observaciones/dashboard-observaciones.component').then(m => m.DashboardObservacionesComponent),
+},
+{
+  path: 'observador-individual',
+  loadComponent: () => import('./pages/observador-individual/observador-individual.component')
+    .then(m => m.ObservadorIndividualComponent)
 }
+
+
 
 ];
