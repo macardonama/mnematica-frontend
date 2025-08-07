@@ -17,7 +17,13 @@ export const routes: Routes = [
   path: 'observador-individual',
   loadComponent: () => import('./pages/observador-individual/observador-individual.component')
     .then(m => m.ObservadorIndividualComponent)
+},
+{
+  path: 'dashboard-asistencia',
+  loadComponent: () =>
+    import('./pages/dashboard-asistencia/dashboard-asistencia.component').then(m => m.DashboardAsistenciaComponent)
 }
+
 
 
 

@@ -1,0 +1,53 @@
+<form [formGroup]="filtroForm" (ngSubmit)="buscarAsistencias()">
+  <select formControlName="docente">
+  <option value="">Seleccione un docente</option>
+  <option *ngFor="let d of docentes" [value]="d">{{ d }}</option>
+</select>
+<select formControlName="grupo">
+  <option value="">Seleccione un grupo</option>
+  <option value="6°">6°</option>
+  <option value="7°">7°</option>
+  <option value="8°">8°</option>
+  <option value="9°">9°</option>
+  <option value="10°">10°</option>
+  <option value="11°">11°</option>
+  <!-- Agrega los que uses -->
+</select>
+  <input type="date" formControlName="fechaInicio" />
+  <input type="date" formControlName="fechaFin" />
+  <button type="submit">Buscar</button>
+</form>
+
+<hr>
+
+<div *ngIf="estudiantes.length">
+  <button (click)="generarPDF()">📄 Descargar PDF</button>
+  <button (click)="exportarExcel()">📥 Descargar Excel</button>
+
+  <table border="1">
+    <thead>
+      <tr>
+        <th>Estudiante</th>
+        <th *ngFor="let f of fechas">{{ f }}</th>
+        <th>% Asistencia</th>
+        <th>PDF Individual</th>
+        <th>Gráfica</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let e of estudiantes">
+        <td>{{ e }}</td>
+        <td *ngFor="let f of fechas">{{ tablaAsistencia[e]?.[f] || '-' }}</td>
+        <td>{{ calcularPorcentaje(e) }}%</td>
+        <td><button (click)="generarPDFIndividual(e)">📄</button></td>
+        <td>
+          <canvas baseChart
+                  [data]="obtenerDatosGrafica(e)"
+                  [type]="'bar'"
+                  [options]="{ responsive: true }">
+          </canvas>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
