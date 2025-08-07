@@ -1,0 +1,46 @@
+/* ===== Layout general ===== */
+.asistencia-dashboard { --b:#e5e7eb; --bg:#fff; --hdr:#f8fafc; --alt:#fcfcfd; --txt:#111827; --mut:#6b7280; --ok:#10b981; --bad:#ef4444; --warn:#f59e0b; --info:#2563eb; border-radius:12px; }
+.divider { border:0; border-top:1px solid var(--b); margin:10px 0 14px; }
+
+/* ===== Toolbar (filtros) ===== */
+.toolbar { display:flex; justify-content:center; }
+.toolbar__row { display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+.input { height:36px; padding:0 10px; border:1px solid var(--b); border-radius:8px; background:var(--bg); min-width:170px; }
+
+/* ===== Botones ===== */
+.btn { border:1px solid var(--b); background:var(--bg); border-radius:8px; padding:6px 12px; cursor:pointer; }
+.btn:hover { background:#f9fafb; }
+.btn--primary { background:var(--ok); color:#fff; border-color:transparent; }
+.btn--primary:hover { filter:brightness(0.95); }
+.btn--icon { padding:4px 8px; }
+
+/* ===== Panel acciones ===== */
+.panel__actions { display:flex; gap:8px; margin-bottom:8px; }
+
+/* ===== Tabla ===== */
+.table-wrap { overflow:auto; border:1px solid var(--b); border-radius:12px; background:var(--bg); }
+.tabla { width:max-content; min-width:100%; border-collapse:separate; border-spacing:0; }
+th, td { padding:8px 10px; border-bottom:1px solid #eef1f4; }
+thead th { position:sticky; top:0; background:var(--hdr); z-index:2; border-bottom:1px solid var(--b); font-weight:700; white-space:nowrap; text-align:center; }
+.sticky-col { position:sticky; left:0; background:var(--bg); z-index:1; min-width:210px; border-right:1px solid var(--b); text-align:left; }
+.name-col { font-weight:600; }
+.fecha-col { min-width:110px; }
+.estado-col { text-align:center; }
+.compact { text-align:center; white-space:nowrap; min-width:110px; }
+.graf-col { min-width:220px; width:220px; height:84px; text-align:center; }
+.graf-col canvas { height:80px !important; }
+tbody tr.alt td { background:var(--alt); }
+
+/* ===== Badges de estado ===== */
+.badge { display:inline-block; padding:2px 8px; border-radius:999px; font-size:12px; border:1px solid transparent; text-transform:capitalize; }
+.badge--empty { color:#9ca3af; background:#f3f4f6; border-color:#e5e7eb; }
+.badge--ok    { color:#065f46; background:#d1fae5; border-color:#a7f3d0; }
+.badge--bad   { color:#7f1d1d; background:#fee2e2; border-color:#fecaca; }
+.badge--warn  { color:#78350f; background:#fef3c7; border-color:#fde68a; }
+.badge--info  { color:#1e3a8a; background:#dbeafe; border-color:#bfdbfe; }
+.badge--mid   { color:#374151; background:#e5e7eb; border-color:#d1d5db; }
+
+/* ===== Barra de porcentaje ===== */
+.bar { display:inline-block; width:90px; height:8px; background:#e5e7eb; border-radius:999px; overflow:hidden; vertical-align:middle; }
+.bar__fill { height:100%; background:var(--ok); }
+.bar__text { margin-left:6px; font-size:12px; color:#374151; }

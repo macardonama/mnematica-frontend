@@ -1,53 +1,86 @@
-<form [formGroup]="filtroForm" (ngSubmit)="buscarAsistencias()">
-  <select formControlName="docente">
-  <option value="">Seleccione un docente</option>
-  <option *ngFor="let d of docentes" [value]="d">{{ d }}</option>
-</select>
-<select formControlName="grupo">
-  <option value="">Seleccione un grupo</option>
-  <option value="6°">6°</option>
-  <option value="7°">7°</option>
-  <option value="8°">8°</option>
-  <option value="9°">9°</option>
-  <option value="10°">10°</option>
-  <option value="11°">11°</option>
-  <!-- Agrega los que uses -->
-</select>
-  <input type="date" formControlName="fechaInicio" />
-  <input type="date" formControlName="fechaFin" />
-  <button type="submit">Buscar</button>
-</form>
 
-<hr>
+<div class="asistencia-dashboard">
+      <h2>Reporte de asistencia</h2>
 
-<div *ngIf="estudiantes.length">
-  <button (click)="generarPDF()">📄 Descargar PDF</button>
-  <button (click)="exportarExcel()">📥 Descargar Excel</button>
+  <!-- Barra de filtros -->
+  <form class="toolbar" [formGroup]="filtroForm" (ngSubmit)="buscarAsistencias()">
+    <div class="toolbar__row">
+      <select formControlName="docente" class="input">
+        <option value="">Seleccione un docente</option>
+        <option *ngFor="let d of docentes" [value]="d">{{ d }}</option>
+      </select>
 
-  <table border="1">
-    <thead>
-      <tr>
-        <th>Estudiante</th>
-        <th *ngFor="let f of fechas">{{ f }}</th>
-        <th>% Asistencia</th>
-        <th>PDF Individual</th>
-        <th>Gráfica</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let e of estudiantes">
-        <td>{{ e }}</td>
-        <td *ngFor="let f of fechas">{{ tablaAsistencia[e]?.[f] || '-' }}</td>
-        <td>{{ calcularPorcentaje(e) }}%</td>
-        <td><button (click)="generarPDFIndividual(e)">📄</button></td>
-        <td>
-          <canvas baseChart
-                  [data]="obtenerDatosGrafica(e)"
-                  [type]="'bar'"
-                  [options]="{ responsive: true }">
-          </canvas>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+      <select formControlName="grupo" class="input">
+        <option value="">Seleccione un grupo</option>
+        <option value="6°">6°</option>
+        <option value="7°">7°</option>
+        <option value="8°">8°</option>
+        <option value="9°">9°</option>
+        <option value="10°">10°</option>
+        <option value="11°">11°</option>
+      </select>
+
+      <input type="date" formControlName="fechaInicio" class="input" />
+      <input type="date" formControlName="fechaFin" class="input" />
+
+      <button type="submit" class="btn btn--primary">🔎 Buscar</button>
+    </div>
+  </form>
+
+  <hr class="divider" />
+
+  <div *ngIf="estudiantes.length" class="panel">
+    <div class="panel__actions">
+      <button class="btn" (click)="generarPDF()">📄 Descargar PDF</button>
+      <button class="btn" (click)="exportarExcel()">📥 Descargar Excel</button>
+    </div>
+
+    <div class="table-wrap">
+      <table class="tabla">
+        <thead>
+          <tr>
+            <th class="sticky-col">Estudiante</th>
+            <th *ngFor="let f of fechas" class="fecha-col">{{ f }}</th>
+            <th class="compact">% Asistencia</th>
+            <th class="compact">PDF</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let e of estudiantes; let i = index" [class.alt]="i % 2 === 1">
+            <td class="sticky-col name-col">{{ e }}</td>
+
+            <!-- celdas estado con badge de color -->
+            <td *ngFor="let f of fechas" class="estado-col">
+              <span 
+                [ngClass]="{
+                  'badge': true,
+                  'badge--empty': !tablaAsistencia[e]?.[f],
+                  'badge--ok': tablaAsistencia[e]?.[f]==='presente',
+                  'badge--bad': tablaAsistencia[e]?.[f]==='ausente',
+                  'badge--info': tablaAsistencia[e]?.[f]==='cita',
+                  'badge--mid': tablaAsistencia[e]?.[f]==='en cuarto',
+                  'badge--warn': tablaAsistencia[e]?.[f]==='hospitalizada' || tablaAsistencia[e]?.[f]==='hospitalizado'
+                }"
+              >
+                {{ tablaAsistencia[e]?.[f] || '-' }}
+              </span>
+            </td>
+
+            <!-- barra de porcentaje -->
+            <td class="compact">
+              <div class="bar">
+                <div class="bar__fill" [style.width.%]="calcularPorcentaje(e)"></div>
+              </div>
+              <span class="bar__text">{{ calcularPorcentaje(e) }}%</span>
+            </td>
+
+            <td class="compact">
+              <button class="btn btn--icon" (click)="generarPDFIndividual(e)">📄</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>
