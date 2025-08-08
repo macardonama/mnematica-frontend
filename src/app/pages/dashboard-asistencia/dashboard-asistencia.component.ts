@@ -23,7 +23,7 @@ export class DashboardAsistenciaComponent implements OnInit {
 
   filtroForm: FormGroup = this.fb.group({
     docente: [''],
-      grupo: [''],            // ✅ Nuevo campo
+    grupo: [''],
     fechaInicio: [''],
     fechaFin: ['']
   });
@@ -34,27 +34,25 @@ export class DashboardAsistenciaComponent implements OnInit {
   fechas: string[] = [];
   tablaAsistencia: { [estudiante: string]: { [fecha: string]: string } } = {};
 
+  resumenEstados: any = {};
+
   ngOnInit(): void {
     this.http.get<any[]>('https://mnematica-backend.onrender.com/api/profesores')
       .subscribe(data => {
         this.docentes = data.map(p => p.nombre_docente);
-
       });
   }
 
- 
-buscarAsistencias() {
-  const { docente, grupo, fechaInicio, fechaFin } = this.filtroForm.value;
-  const url = `https://mnematica-backend.onrender.com/api/asistencias/docente?docente=${encodeURIComponent(docente)}&fechaInicio=${fechaInicio}&fechaFin=${fechaFin}`;
-  this.http.get<any[]>(url).subscribe(data => {
-    // Filtra solo asistencias del grupo seleccionado
-    this.asistencias = data.filter(a => a.grupo === grupo);
-    this.procesarDatos();
-  });
-}
-
-
-
+  buscarAsistencias() {
+    const { docente, grupo, fechaInicio, fechaFin } = this.filtroForm.value;
+    const url = `https://mnematica-backend.onrender.com/api/asistencias/docente?docente=${encodeURIComponent(docente)}&fechaInicio=${fechaInicio}&fechaFin=${fechaFin}`;
+    this.http.get<any[]>(url).subscribe(data => {
+      // Filtra solo asistencias del grupo seleccionado
+      this.asistencias = data.filter(a => a.grupo === grupo);
+      this.procesarDatos();
+      this.calcularResumen(); // ✅ Ahora se actualiza el resumen
+    });
+  }
 
   procesarDatos() {
     const estudiantesSet = new Set<string>();
@@ -81,6 +79,23 @@ buscarAsistencias() {
 
     this.estudiantes = Array.from(estudiantesSet).sort();
     this.fechas = Array.from(fechasSet).sort();
+  }
+
+  calcularResumen() {
+    this.resumenEstados = {
+      presente: 0,
+      ausente: 0,
+      'en cuarto': 0,
+      hospitalizado: 0,
+      egreso: 0
+    };
+
+    this.asistencias.forEach((est: any) => {
+      const estado = (est.estado || '').toLowerCase().trim();
+      if (this.resumenEstados.hasOwnProperty(estado)) {
+        this.resumenEstados[estado]++;
+      }
+    });
   }
 
   generarPDF() {

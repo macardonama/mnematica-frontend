@@ -39,8 +39,30 @@ tbody tr.alt td { background:var(--alt); }
 .badge--warn  { color:#78350f; background:#fef3c7; border-color:#fde68a; }
 .badge--info  { color:#1e3a8a; background:#dbeafe; border-color:#bfdbfe; }
 .badge--mid   { color:#374151; background:#e5e7eb; border-color:#d1d5db; }
+.badge--egreso {
+  background-color: #ffa500; /* naranja, por ejemplo */
+  color: white;
+}
 
 /* ===== Barra de porcentaje ===== */
 .bar { display:inline-block; width:90px; height:8px; background:#e5e7eb; border-radius:999px; overflow:hidden; vertical-align:middle; }
 .bar__fill { height:100%; background:var(--ok); }
 .bar__text { margin-left:6px; font-size:12px; color:#374151; }
+
+
+.resumen-estados {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+.resumen-item {
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-weight: bold;
+  color: #fff;
+}
+.presente { background: #10b981; }
+.ausente { background: #ef4444; }
+.en-cuarto { background: #3b82f6; }
+.hospitalizado { background: #8b5cf6; }
+.egreso { background: #f59e0b; }

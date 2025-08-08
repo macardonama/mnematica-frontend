@@ -26,6 +26,15 @@
       <button type="submit" class="btn btn--primary">🔎 Buscar</button>
     </div>
   </form>
+<br>
+  <div class="resumen-estados">
+  <div class="resumen-item presente">Presente: {{ resumenEstados.presente }}</div>
+  <div class="resumen-item ausente">Ausente: {{ resumenEstados.ausente }}</div>
+  <div class="resumen-item en-cuarto">En cuarto: {{ resumenEstados['en cuarto'] }}</div>
+  <div class="resumen-item hospitalizado">Hospitalizado: {{ resumenEstados.hospitalizado }}</div>
+  <div class="resumen-item egreso">Egreso: {{ resumenEstados.egreso }}</div>
+</div>
+
 
   <hr class="divider" />
 
@@ -52,19 +61,20 @@
 
             <!-- celdas estado con badge de color -->
             <td *ngFor="let f of fechas" class="estado-col">
-              <span 
-                [ngClass]="{
-                  'badge': true,
-                  'badge--empty': !tablaAsistencia[e]?.[f],
-                  'badge--ok': tablaAsistencia[e]?.[f]==='presente',
-                  'badge--bad': tablaAsistencia[e]?.[f]==='ausente',
-                  'badge--info': tablaAsistencia[e]?.[f]==='cita',
-                  'badge--mid': tablaAsistencia[e]?.[f]==='en cuarto',
-                  'badge--warn': tablaAsistencia[e]?.[f]==='hospitalizada' || tablaAsistencia[e]?.[f]==='hospitalizado'
-                }"
-              >
-                {{ tablaAsistencia[e]?.[f] || '-' }}
-              </span>
+              <span
+  [ngClass]="{
+    'badge': true,
+    'badge--empty': !tablaAsistencia[e][f],
+    'badge--ok':    tablaAsistencia[e][f] === 'presente',
+    'badge--bad':   tablaAsistencia[e][f] === 'ausente',
+    'badge--info':  tablaAsistencia[e][f] === 'cita',
+    'badge--mid':   tablaAsistencia[e][f] === 'en cuarto',
+    'badge--warn':  tablaAsistencia[e][f] === 'hospitalizada' || tablaAsistencia[e][f] === 'hospitalizado',
+    'badge--egreso': tablaAsistencia[e][f] === 'egreso'
+  }"
+>
+  {{ tablaAsistencia[e][f] || '-' }}
+</span>
             </td>
 
             <!-- barra de porcentaje -->
