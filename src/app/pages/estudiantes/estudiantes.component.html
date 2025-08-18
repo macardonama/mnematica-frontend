@@ -14,9 +14,22 @@
   <ul class="lista-estudiantes">
     <li *ngFor="let estudiante of estudiantes" class="estudiante-card">
       <input [(ngModel)]="estudiante.nombre_estudiante" placeholder="Nombre" class="input-text" />
-      <input [(ngModel)]="estudiante.grado" placeholder="Grupo" class="input-text" />
+
+      <!-- GRADO -->
+    <select [(ngModel)]="estudiante.grado" class="select-input">
+      <option [ngValue]="''" disabled>Selecciona el grado</option>
+      <option *ngFor="let g of grados" [ngValue]="g">{{ g }}</option>
+    </select>
+
+<!-- HITO (1,2,3) -->
+    <select [(ngModel)]="estudiante.hito" class="select-input">
+      <option [ngValue]="null" disabled>Selecciona el hito</option>
+      <option *ngFor="let h of hitos" [ngValue]="h">{{ h }}</option>
+    </select>
+
+
       <input type="date" [(ngModel)]="estudiante.fecha_nacimiento" class="input-text" />
-      <input type="number" [(ngModel)]="estudiante.hito" placeholder="Hito" class="input-text" />
+
 
       <div class="botones-estudiante">
         <button class="btn-principal" (click)="actualizar(estudiante)">Modificar</button>
@@ -28,9 +41,19 @@
   <h3 class="mt-3">Agregar Nuevo Estudiante</h3>
   <div class="filtros">
     <input [(ngModel)]="nuevoEstudiante.nombre_estudiante" placeholder="Nombre" class="input-text" />
-    <input [(ngModel)]="nuevoEstudiante.grado" placeholder="Grupo" class="input-text" />
+    <!-- GRADO -->
+<select [(ngModel)]="nuevoEstudiante.grado" class="select-input">
+  <option [ngValue]="''" disabled>Selecciona el grado</option>
+  <option *ngFor="let g of grados" [ngValue]="g">{{ g }}</option>
+</select>
+
+<!-- HITO -->
+<select [(ngModel)]="nuevoEstudiante.hito" class="select-input">
+  <option [ngValue]="null" disabled>Selecciona el hito</option>
+  <option *ngFor="let h of hitos" [ngValue]="h">{{ h }}</option>
+</select>
+
     <input type="date" [(ngModel)]="nuevoEstudiante.fecha_nacimiento" class="input-text" />
-    <input type="number" [(ngModel)]="nuevoEstudiante.hito" placeholder="Hito" class="input-text" />
     <button class="btn-principal" (click)="agregar()">Agregar</button>
   </div>
 </div>

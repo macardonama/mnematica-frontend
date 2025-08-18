@@ -17,11 +17,13 @@ export class EstudiantesComponent implements OnInit {
     nombre_estudiante: '', 
     grado: '',
     fecha_nacimiento: '',
-    hito: 0
+    hito: 1
   };
 
   grupos: string[] = ['Todos', '6°', '7°', '8°', '9°', '10°', '11°'];
   grupoSeleccionado = 'Todos';
+  grados: string[] = ['6°','7°','8°','9°','10°','11°'];
+  hitos: number[]  = [1, 2, 3];
 
   constructor(private estudiantesService: EstudiantesService) {}
 
@@ -47,7 +49,7 @@ export class EstudiantesComponent implements OnInit {
 
   agregar() {
     this.estudiantesService.agregarEstudiante(this.nuevoEstudiante).subscribe(() => {
-      this.nuevoEstudiante = { nombre_estudiante: '', grado: '', fecha_nacimiento: '', hito: 0 };
+      this.nuevoEstudiante = { nombre_estudiante: '', grado: '', fecha_nacimiento: '', hito: 1 };
       this.cargarEstudiantes();
     });
   }
