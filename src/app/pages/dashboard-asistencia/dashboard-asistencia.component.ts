@@ -20,6 +20,19 @@ Chart.register(...registerables);
 export class DashboardAsistenciaComponent implements OnInit {
   fb = inject(FormBuilder);
   http = inject(HttpClient);
+  // Opciones unificadas del selector
+gruposUnificados = [
+  { label: 'Todos',          values: [] },
+  { label: '6°',             values: ['6°'] },
+  { label: '7°–8°',          values: ['7°', '8°'] },
+  { label: '9°–10°–11°',     values: ['9°', '10°', '11°'] },
+];
+
+// Normaliza el formato del grupo que llega del backend
+private normGrupo(g: string = ''): string {
+  const t = (g ?? '').trim();
+  return t && !t.endsWith('°') ? `${t}°` : t;
+}
 
   filtroForm: FormGroup = this.fb.group({
     docente: [''],
@@ -45,13 +58,23 @@ export class DashboardAsistenciaComponent implements OnInit {
 
   buscarAsistencias() {
     const { docente, grupo, fechaInicio, fechaFin } = this.filtroForm.value;
-    const url = `https://mnematica-backend.onrender.com/api/asistencias/docente?docente=${encodeURIComponent(docente)}&fechaInicio=${fechaInicio}&fechaFin=${fechaFin}`;
-    this.http.get<any[]>(url).subscribe(data => {
-      // Filtra solo asistencias del grupo seleccionado
-      this.asistencias = data.filter(a => a.grupo === grupo);
-      this.procesarDatos();
-      this.calcularResumen(); // ✅ Ahora se actualiza el resumen
-    });
+const url = `https://mnematica-backend.onrender.com/api/asistencias/docente?docente=${encodeURIComponent(docente)}&fechaInicio=${fechaInicio}&fechaFin=${fechaFin}`;
+
+this.http.get<any[]>(url).subscribe(data => {
+  // normaliza grupos
+  const dataNorm = (data || []).map(a => ({ ...a, grupo: this.normGrupo(a.grupo) }));
+
+  // convierte la etiqueta elegida en lista de grados reales
+  const sel = this.gruposUnificados.find(x => x.label === grupo);
+
+  this.asistencias = (!sel || sel.values.length === 0)
+    ? dataNorm                                  // "Todos": no filtra por grupo
+    : dataNorm.filter(a => sel.values.includes(a.grupo));
+
+  this.procesarDatos();
+  this.calcularResumen();
+});
+
   }
 
   procesarDatos() {
